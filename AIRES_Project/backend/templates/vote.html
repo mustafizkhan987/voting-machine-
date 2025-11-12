@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Election Voting System - Vote</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="header-gov">Government of India - Election Commission</div>
+    <div class="container">
+        <header>
+            <h1>Cast Your Vote</h1>
+            <nav>
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </nav>
+        </header>
+        <main>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="flash">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <h2>Select Your Candidate</h2>
+            <form method="POST" id="voteForm">
+                <div class="candidates">
+                    <div class="candidate-card" onclick="selectCandidate('Candidate A')">
+                        <img src="https://via.placeholder.com/150/FF9933/FFFFFF?text=Narendra+Modi" alt="Candidate A">
+                        <h3>Candidate A</h3>
+                        <input type="radio" name="candidate" value="Candidate A" id="Candidate A" required>
+                    </div>
+                    <div class="candidate-card" onclick="selectCandidate('Candidate B')">
+                        <img src="https://via.placeholder.com/150/FFFFFF/000000?text=Rahul+Gandhi" alt="Candidate B">
+                        <h3>Candidate B</h3>
+                        <input type="radio" name="candidate" value="Candidate B" id="Candidate B" required>
+                    </div>
+                    <div class="candidate-card" onclick="selectCandidate('Candidate C')">
+                        <img src="https://via.placeholder.com/150/128807/FFFFFF?text=Arvind+Kejriwal" alt="Candidate C">
+                        <h3>Candidate C</h3>
+                        <input type="radio" name="candidate" value="Candidate C" id="Candidate C" required>
+                    </div>
+                </div>
+                <button type="submit">Cast Vote</button>
+            </form>
+        </main>
+    </div>
+    <div class="footer-gov">© 2025 Election Commission of India. All rights reserved.</div>
+    <script>
+        function selectCandidate(name) {
+            document.getElementById(name).checked = true;
+            // Highlight selected
+            document.querySelectorAll('.candidate-card').forEach(card => card.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+        }
+    </script>
+</body>
+</html>
